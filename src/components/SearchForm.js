@@ -1,27 +1,23 @@
-import { useState } from 'react';
-
 export default function SearchForm({ searchTerm, handleSearch }) {
-  const [searchFieldValue, setSearchFieldValue] = useState('');
-
   function handleSubmit(event) {
     event.preventDefault();
 
-    handleSearch(searchFieldValue);
+    const formElements = event.target.elements;
+    handleSearch(formElements.searchTerm.value);
+
+    // FormData -- see JS From Handout
+    // const formData = new FormData(event.target);
+    // const data = Object.fromEntries(formData);
+    // handleSearch(data.searchTerm);
+
+    event.target.reset();
   }
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <label htmlFor="searchTerm">Search term:</label>
-        <input
-          type="text"
-          name="searchTerm"
-          id="searchTerm"
-          value={searchFieldValue}
-          onChange={(event) => {
-            setSearchFieldValue(event.target.value);
-          }}
-        />
+        <input type="text" name="searchTerm" id="searchTerm" />
         <button type="submit">
           <span role="img" aria-label="search icon">
             🔍
